@@ -81,6 +81,7 @@ export class DatabaseService{
         } catch (error) {
             console.log("Appwrite Service :: uploadFile :: error",error)
         }
+        return null
     }
 
     async deleteFile(fileId){
