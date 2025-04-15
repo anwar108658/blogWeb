@@ -4,6 +4,7 @@ import authService from "./appwrite/auth"
 import { login, logout } from "./store/authSlice/authSlice"
 import Footer from "./components/Footer/Footer"
 import Header from "./components/Header/Header"
+import { Outlet } from "react-router-dom"
 
 function App() {
   const dispatch = useDispatch()
@@ -14,6 +15,7 @@ function App() {
       .then((userData) => {
         if (userData) {
           dispatch(login(userData))
+          console.log(userData)
         }else {
           dispatch(logout())
         }
@@ -22,7 +24,7 @@ function App() {
         setLoading(false)
       })
   }, [])
-  
+
   if (!loading) {
     return (
       <>
@@ -30,7 +32,7 @@ function App() {
         <Header/>
       </header>
         <main>
-          <h1>hello World</h1>
+          <Outlet/>
         </main>
       <footer>
         <Footer/>

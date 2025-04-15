@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {PostCard} from "../components/index"
 import databaseService from '../appwrite/config'
 
