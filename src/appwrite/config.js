@@ -1,5 +1,5 @@
 import env from "../env-import/env"
-import { Client, Databases, ID, Query, Storage, } from "appwrite";
+import { Client, Databases, ID, Query, Role, Storage, } from "appwrite";
 
 export class DatabaseService{
     client = new Client();
@@ -76,7 +76,7 @@ export class DatabaseService{
             return await this.bucket.createFile(
                 env.appwriteBucketID,
                 ID.unique(),
-                file
+                file,
             )
         } catch (error) {
             console.log("Appwrite Service :: uploadFile :: error",error)
@@ -93,7 +93,7 @@ export class DatabaseService{
     }
 
     getFilePreview(fileId){
-        return this.bucket.getFilePreview(
+        return this.bucket.getFileView(
             env.appwriteBucketID,
             fileId
         )

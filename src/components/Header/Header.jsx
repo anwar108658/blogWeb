@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
   const authStatus = useSelector(state => state.auth.status)
-  const navigate = useNavigate();
-
+  const navigate = useNavigate(); 
+  
   const navItems = [
     {name:"Home",path:"/",active:true},
     {name:"Login",path:"/login",active:!authStatus},
@@ -21,17 +21,17 @@ const Header = () => {
         <img src={logo} width={50} alt="" />
       </div>
       <div>
-        <ul className='flex gap-3'>
+        <ul className='flex items-center gap-3'>
           {navItems.map((item) => 
           item.active ? (
-            <li key={item.name} className='cursor-pointer'>
-              <button onClick={() => navigate(item.path)}>{item.name}</button>
+            <li key={item.name} >
+              <button onClick={() => navigate(item.path)} className='cursor-pointer'>{item.name}</button>
             </li>
           ):null
           )}
           {authStatus && (
-            <li key="logout">
-              <LogoutBtn/>
+            <li key="logout" >
+              <LogoutBtn />
             </li>
           )}
         </ul>

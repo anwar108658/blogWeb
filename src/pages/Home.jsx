@@ -26,9 +26,9 @@ const Home = () => {
             <div className='w-full flex flex-col items-center justify-center'>
                 <h2 className='text-3xl font-bold text-center'>All Posts</h2>
                 <div className='flex flex-wrap justify-center gap-4'>
-                    {post.map((post) => (
-                        <PostCard key={post?.$id} post={post} />
-                    ))}
+                    {post.map((post) => {
+                       return <PostCard key={post.$id} {...post} />
+                    })}
                 </div>
             </div>
         )

@@ -17,6 +17,7 @@ const PostForm = ({post}) => {
     }})
 
     const submit = async (data) => {
+        console.log(data,"data")
         if (post) {
             const file = await data.image[0] ? databaseService.uploadFile(data.image[0]):null
             if (file) {
@@ -47,21 +48,29 @@ const PostForm = ({post}) => {
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === 'string') {
-            return value.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '')
+            return value
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, '-')         
+                .replace(/[^\w\-]+/g, '')     
+                .replace(/\-\-+/g, '-')       
+                .replace(/^-+|-+$/g, '');
         }
-        return ""
+        return ''
     }
     ,[])
 
     useEffect(() => {
-      const subscription = watch((value) => {
-        const slug = slugTransform(value.title,{shouldValidate:true})
-        setValue("slug",slug)
+      const subscription = watch((value,{name}) => {
+          if (name === "title") {
+              const slug = slugTransform(value.title,{shouldValidate:true})
+              setValue("slug",slug)
+          }
       })
       return () => {
         subscription.unsubscribe()
       }
-    }, [watch])
+    }, [watch,slugTransform,setValue])
     
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
